@@ -17,3 +17,4 @@ Une instance AWS linux a été lancée. Pour y accéder via le shell :
 ![Hostname](Add_ppk.PNG?raw=true)
 
 •	Enfin, dans l’onglet session cliquer sur open.
+•	passphrase : adminAdmin-321
