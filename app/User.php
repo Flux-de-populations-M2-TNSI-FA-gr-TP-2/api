@@ -18,7 +18,7 @@ class User extends Authenticatable implements JWTSubject
 
     protected $dates = ['deleted_at'];
     protected $fillable = array('firstname', 'lastname', 'email', 'password', 'birthdate', 'role');
-    protected $visible = array('firstname', 'lastname', 'email', 'birthdate', 'role');
+    protected $visible = array('id', 'firstname', 'lastname', 'email', 'birthdate', 'role');
     protected $hidden = array('password');
 
     public function events()
@@ -46,4 +46,16 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    /**
+     * Return admin state
+     *
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        if ($this->role === 'admin') {
+          return true;
+        }
+        return false;
+    }
 }
