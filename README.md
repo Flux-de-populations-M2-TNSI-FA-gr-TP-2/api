@@ -6,7 +6,7 @@ Une instance AWS linux a été lancée. Pour y accéder via le shell :
 
 •	Dans le champs HostName entrez : 
 
-	o	ec2-user@ec2-54-174-216-2.compute-1.amazonaws.com
+	o	ec2-user@ec2-18-208-193-15.compute-1.amazonaws.com
 	o	vous pouvez save votre configuration pour plus de confort lors des prochaines connexions.
 ![Hostname](Login_PUTTY.PNG?raw=true)
 
