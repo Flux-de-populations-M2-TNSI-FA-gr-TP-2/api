@@ -41,6 +41,15 @@ Route::middleware(['auth.jwt','auth:api'])->group(function () {
     Route::post('update/{id}', 'Api\RoomApiController@update');
     Route::post('delete/{id}', 'Api\RoomApiController@delete');
   });
+    
+   /* Events Routes */
+   Route::prefix('event')->group(function() {
+     Route::get('all', 'Api\EventApiController@index');
+     Route::get('event/{id}', 'Api\EventApiController@show');
+     Route::post('create', 'Api\EventApiController@create');
+     Route::post('update/{id}', 'Api\EventApiController@update');
+     Route::post('delete/{id}', 'Api\EventApiController@destroy');
+    });
 
   Route::prefix('user')->group(function () {
     Route::get('/', 'Api\UserApiController@index');
