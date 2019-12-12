@@ -21,9 +21,20 @@ Route::middleware(['auth.jwt','auth:api'])->group(function () {
     Route::get('user', 'Api\UserApiController@getAuthUser');
   });
 
+  /* LOCATION ROUTES */
   Route::prefix('location')->group(function () {
-    Route::post('create', 'Api\EventApiController@create');
-    Route::get('user', 'Api\UserApiController@getAuthUser');
+    Route::get('all', 'Api\LocationApiController@index');
+    Route::post('create', 'Api\LocationApiController@create');
+    Route::post('update/{id}', 'Api\LocationApiController@update');
+    Route::post('delete/{id}', 'Api\LocationApiController@delete');
+  });
+
+  /* ROOM ROUTES */
+  Route::prefix('room')->group(function() {
+    Route::get('all', 'Api\RoomApiController@index');
+    Route::post('create', 'Api\RoomApiController@create');
+    Route::post('update/{id}', 'Api\RoomApiController@update');
+    Route::post('delete/{id}', 'Api\RoomApiController@delete');
   });
 
   Route::prefix('user')->group(function () {
