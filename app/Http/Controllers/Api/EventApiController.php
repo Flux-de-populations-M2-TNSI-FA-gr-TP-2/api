@@ -23,23 +23,7 @@ class EventApiController extends Controller
     return response()->json([
       'success' => true,
       'data' => $events
-    ], 201);
-  }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    $event = Event::find($id);
-
-    return response()->json([
-      'success' => true,
-      'data' => $event
-    ], 201);
+    ], 200);
   }
 
   /**
@@ -64,26 +48,34 @@ class EventApiController extends Controller
   }
 
   /**
+  * Display the specified resource.
+  *
+  * @param  int  $id
+  * @return Response
+  */
+  public function show(Event $event)
+  {
+    return response()->json([
+      'success' => true,
+      'data' => $event
+    ], 200);
+  }
+
+  /**
    * Update the specified resource in storage.
    *
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(Request $request, Event $event)
   {
-    $event = Event::findOrFail($id);
-
-    $event->name = $request->name;
-    $event->start = $request->start;
-    $event->end = $request->end;
-    $event->status = $request->status;
-
-    $event -> save();
+    $event->update($request->all());
 
     return response()->json([
       'success' => true,
-      'data' => $event
-    ], 201);
+      'data' => $event,
+      'message' => "Évènement modifié"
+    ], 200);
   }
 
   /**
@@ -92,16 +84,13 @@ class EventApiController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy(Event $event)
   {
-    $event = Event::findOrFail($id);
-
-    $event -> deleted_at = \Carbon\Carbon::now();
-    $event -> save();
+    $event->delete();
 
     return response()->json([
       'success' => true,
-      'data' => $event
-    ], 201);
+      'message' => 'Évènement supprimé'
+    ], 204);
   }
 }

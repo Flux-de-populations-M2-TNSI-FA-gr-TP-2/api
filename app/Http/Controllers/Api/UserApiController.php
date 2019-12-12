@@ -203,7 +203,7 @@ class UserApiController extends Controller
 
     if ($user) {
       return response()->json([
-        'success' => true
+        'success' => true,
         'data' => $user
       ]);
     }

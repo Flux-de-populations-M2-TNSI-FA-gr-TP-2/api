@@ -14,11 +14,11 @@ class LocationApiController extends Controller
 
   public function index()
   {
-    $locations = \App\Location::get();
+    $locations = Location::get();
     return response()->json([
       'success' => true,
       'data'    => $locations
-    ], 201);
+    ], 200);
   }
 
   public function create(Request $request)
@@ -26,7 +26,6 @@ class LocationApiController extends Controller
     $location          = new Location();
     $location->name    = $request->name;
     $location->address = $request->address;
-
     $location->save();
 
     return response()->json([
@@ -35,30 +34,44 @@ class LocationApiController extends Controller
     ], 201);
   }
 
-  public function update(Request $request, $id)
+  public function update(Request $request, Location $location)
   {
-    $location          = Location::findOrFail($id);
-    $location->name    = $request->name;
-    $location->address = $request->address;
-
-    $location->save();
+    $location->update($request->all());
 
     return response()->json([
       'success' => true,
-      'data'    => $location
-    ], 201);
+      'data'    => $location,
+      'message' => "Batiment modifié"
+    ], 200);
   }
 
-  public function delete(Request $request, $id)
+  /**
+   * Display the specified resource.
+   *
+   * @param  int  $id
+   * @return Response
+   */
+  public function show(Location $location)
   {
-    $location             = Location::findOrFail($id);
-    $location->deleted_at = \Carbon\Carbon::now();
+    return response()->json([
+      'success' => true,
+      'data' => $location
+    ], 200);
+  }
 
-    $location->save();
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  int  $id
+   * @return Response
+   */
+  public function destroy(Location $location)
+  {
+    $location->delete();
 
     return response()->json([
       'success' => true,
-      'data'    => $location
-    ], 201);
+      'message' => 'Batiment supprimé'
+    ], 204);
   }
 }

@@ -15,7 +15,7 @@ class RoomApiController extends Controller
 	    return response()->json([
 			'success' => true,
 			'data'    => $rooms
-	    ], 201);
+		], 200);
 	}
 
 	public function create(Request $request)
@@ -24,7 +24,6 @@ class RoomApiController extends Controller
 		$room->name        = $request->name;
 		$room->floor       = $request->floor;
 		$room->location_id = $request->location_id;
-
 		$room->save();
 
 		return response()->json([
@@ -33,30 +32,50 @@ class RoomApiController extends Controller
 		], 201);
 	}
 
-	public function update(Request $request, $id)
+	/**
+	* Display the specified resource.
+	*
+	* @param  int  $id
+	* @return Response
+	*/
+	public function show(Room $room)
 	{
-		$room              = Room::findOrFail($id);
-		$room->name        = $request->name;
-		$room->floor       = $request->floor;
-		$room->location_id = $request->location_id;
-
-		$room->save();
-
 		return response()->json([
 			'success' => true,
-			'data'    => $room
-		], 201);
+			'data' => $room
+		], 200);
 	}
 
-	public function delete(Request $request, $id)
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update(Request $request, Room $room)
 	{
-		$room             = Room::findOrFail($id);
-		$room->deleted_at = \Carbon\Carbon::now();
-		$room->save();
+		$room->update($request->all());
 
 		return response()->json([
 			'success' => true,
-			'data'    => $room
-		], 201);
+			'data' => $room,
+			'message' => "Salle modifiée"
+		], 200);
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy(Room $room)
+	{
+		$room->delete();
+
+		return response()->json([
+			'success' => true,
+			'message' => 'Salle supprimée'
+		], 204);
 	}
 }
