@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
+// Ces routes son ouvertes et ne nécessitent pas l'utilisation d'un Bearer token (JWT)
+Route::prefix('user')->group(function () {
+  Route::post('login', 'Api\UserApiController@login');
+  Route::post('register', 'Api\UserApiController@register');
+});
 
 // Ces routes nécessitent l'utilisation d'un Bearer token (JWT) obtenu après le login
 Route::middleware(['auth.jwt','auth:api'])->group(function () {
@@ -27,29 +32,11 @@ Route::middleware(['auth.jwt','auth:api'])->group(function () {
   });
 
   Route::prefix('user')->group(function () {
+    Route::get('/', 'Api\UserApiController@index');
     Route::get('logout', 'Api\UserApiController@logout');
     Route::post('{user}', 'Api\UserApiController@update');
-    Route::get('me', 'Api\UserApiController@getAuthUser');
     Route::delete('{user}', 'Api\UserApiController@destroy');
     Route::post('{id}', 'Api\UserApiController@restore');
-    Route::get('/', 'Api\UserApiController@index');
+    Route::get('me', 'Api\UserApiController@getAuthUser');
   });
-});
-
-// Route::middleware(['auth.jwt','auth:api'])->prefix('user')->group(function () {
-//   Route::get('logout', 'Api\UserApiController@logout');
-//   Route::get('user', 'Api\UserApiController@getAuthUser');
-//
-//   // Route::get('/', 'UserController@index');
-//   // Route::get('/{user}', 'UserController@show');
-//   // Route::post('/', 'UserController@store');
-//   // Route::put('/{user}', 'UserController@update');
-//   // Route::delete('/{user}', 'UserController@destroy');
-// });
-
-
-// Ces routes son ouvertes et ne nécessitent pas l'utilisation d'un Bearer token (JWT)
-Route::prefix('user')->group(function () {
-  Route::post('login', 'Api\UserApiController@login');
-  Route::post('register', 'Api\UserApiController@register');
 });

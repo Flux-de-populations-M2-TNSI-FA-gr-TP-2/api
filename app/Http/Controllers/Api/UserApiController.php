@@ -51,12 +51,10 @@ class UserApiController extends Controller
 
   public function logout(Request $request)
   {
-    $this->validate($request, [
-      'token' => 'required'
-    ]);
+    $token = $this->getTokenFromRequest($request);
 
     try {
-      JWTAuth::invalidate($request->token);
+      JWTAuth::invalidate($token);
 
       return response()->json([
         'success' => true,
@@ -134,11 +132,24 @@ class UserApiController extends Controller
   public function restore($id)
   {
     if (auth()->user()->isAdmin()) {
-      User::withTrashed()->find($id)->restore();
+      $user = User::withTrashed()->find($id)->restore();
+      if (!$user) {
+        return response()->json([
+          'success' => false,
+          'message' => 'Utilisateur non trouvé'
+        ], 201);
+      }
 
-      return response()->json(null, 201);
+      return response()->json([
+        'success' => true,
+        'data' => $user,
+        'message' => 'Utilisateur restauré'
+      ], 201);
     }
-    return response()->json(null, 401);
+    return response()->json([
+      'success' => false,
+      'message' => "Seul l'administrateur peut supprimer un autre utilisateur"
+    ], 401);
   }
 
   /**
