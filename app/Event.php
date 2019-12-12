@@ -17,14 +17,14 @@ class Event extends Model
     protected $fillable = array('name', 'start', 'end', 'status');
     protected $visible = array('name', 'start', 'end', 'status');
 
-    public function users()
+    public function groups()
     {
-        return $this->belongsToMany('App\User', 'user_id');
+        return $this->belongsToMany('App\EventGroups', 'event_groups', 'event_id', 'group_id');
     }
 
     public function locations()
     {
-        return $this->belongsToMany('App\Location', 'location_id');
+        return $this->belongsToMany('App\Location', 'event_location', 'event_id', 'location_id');
     }
 
 }

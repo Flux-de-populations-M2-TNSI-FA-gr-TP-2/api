@@ -22,4 +22,9 @@ class Room extends Model
         return $this->belongsTo('App\Location', 'location_id');
     }
 
+    public function sensors()
+    {
+        return $this->hasMany('App\Sensor');
+    }
+
 }

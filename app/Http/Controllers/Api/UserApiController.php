@@ -13,7 +13,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UserApiController extends Controller
 {
-  public function register(RegisterAuthRequest $request)
+  public function create(RegisterAuthRequest $request)
   {
     $user = new User();
     $user->firstname = $request->firstname;
@@ -127,6 +127,26 @@ class UserApiController extends Controller
     return response()->json([
       'success' => false,
       'message' => "Seul l'administrateur peut restaurer un utilisateur"
+    ], 401);
+  }
+
+  /**
+  * Display the specified resource.
+  *
+  * @param  int  $id
+  * @return Response
+  */
+  public function show(User $user)
+  {
+    if (auth()->user()->isAdmin()) {
+      return response()->json([
+        'success' => true,
+        'data' => $user
+      ], 200);
+    }
+    return response()->json([
+      'success' => false,
+      'message' => "Seul l'administrateur peut afficher les infos de cet utilisateur"
     ], 401);
   }
 

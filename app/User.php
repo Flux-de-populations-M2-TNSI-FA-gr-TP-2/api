@@ -18,15 +18,15 @@ class User extends Authenticatable implements JWTSubject
 
     protected $dates = ['deleted_at'];
     protected $fillable = array('firstname', 'lastname', 'email', 'password', 'birthdate', 'role');
-    protected $visible = array('id', 'firstname', 'lastname', 'email', 'birthdate', 'role');
+    protected $visible = array('firstname', 'lastname', 'email', 'birthdate', 'role');
     protected $hidden = array('password');
 
-    public function events()
+    public function eventsSubscription()
     {
-        return $this->belongsToMany('App\Event', 'event_id');
+        return $this->belongsToMany('App\EventGroups', 'group_users', 'user_id', 'group_id');
     }
-
-    /**
+	
+	/**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed

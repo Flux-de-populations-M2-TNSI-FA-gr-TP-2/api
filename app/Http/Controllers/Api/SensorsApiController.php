@@ -12,7 +12,7 @@ use GuzzleHttp\Client;
 
 class SensorsApiController extends Controller
 {
-  private $access_token = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjU1ODJlZmZiLWNiNDMtNDdlNC05NDA3LWIxZThlOTYzMmU2ZSJ9.eyJjbGllbnRfaWQiOiJsb2NhbC10b2tlbiIsInJvbGUiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZSI6Ii90aGluZ3M6cmVhZHdyaXRlIiwiaWF0IjoxNTc2MTM5MzAzLCJpc3MiOiJodHRwczovL3BpLXNlbnNvcnMubW96aWxsYS1pb3Qub3JnIn0.iP41jAwSKyTUW6ectYFPTdjmrbmxU5nUxKMdXH33EpRS9TGqr89xR40_-DdISqFKxgTLu2cn4II8pk3BSP0MwQ";
+  private $access_token = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ijk3ODk4ZWU1LWM1MzAtNGFmZC1iODM2LWEwNWQ5YjNlZGI0YyJ9.eyJjbGllbnRfaWQiOiJsb2NhbC10b2tlbiIsInJvbGUiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZSI6Ii90aGluZ3M6cmVhZHdyaXRlIiwiaWF0IjoxNTc2MTY5MTI1LCJpc3MiOiJodHRwczovL3BpLXNlbnNvcnMubW96aWxsYS1pb3Qub3JnIn0.KolFPDYOWutwMh4qth4DccBasTi3zVd1cMh4_kKAnJRS1JZmpfRW52HXcok8NubpOu-hqM5qEOxYkXkRxMfjCQ";
   /**
   * List all users
   *
@@ -24,7 +24,7 @@ class SensorsApiController extends Controller
     $res = $client->request('GET', 'https://pi-sensors.mozilla-iot.org/things', [
       'headers' =>
       [
-        'Authorization' => "Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjU1ODJlZmZiLWNiNDMtNDdlNC05NDA3LWIxZThlOTYzMmU2ZSJ9.eyJjbGllbnRfaWQiOiJsb2NhbC10b2tlbiIsInJvbGUiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZSI6Ii90aGluZ3M6cmVhZHdyaXRlIiwiaWF0IjoxNTc2MTM5MzAzLCJpc3MiOiJodHRwczovL3BpLXNlbnNvcnMubW96aWxsYS1pb3Qub3JnIn0.iP41jAwSKyTUW6ectYFPTdjmrbmxU5nUxKMdXH33EpRS9TGqr89xR40_-DdISqFKxgTLu2cn4II8pk3BSP0MwQ"
+        'Authorization' => "Bearer {$this->access_token}"
       ]
     ]);
     if ($res->getStatusCode() == 200) {

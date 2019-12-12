@@ -27,4 +27,9 @@ class Location extends Model
         return $this->belongsToMany('App\Event', 'event_id');
     }
 
+    public function sensors()
+    {
+        return $this->hasManyThrough('App\Sensor', 'App\Room');
+    }
+
 }
