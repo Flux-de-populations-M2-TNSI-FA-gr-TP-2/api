@@ -34,7 +34,7 @@ Route::middleware(['auth.jwt','auth:api'])->group(function () {
   Route::prefix('user')->group(function () {
     Route::get('/', 'Api\UserApiController@index');
     Route::get('logout', 'Api\UserApiController@logout');
-    Route::post('{user}', 'Api\UserApiController@update');
+    Route::put('{user}', 'Api\UserApiController@update');
     Route::delete('{user}', 'Api\UserApiController@destroy');
     Route::post('{id}', 'Api\UserApiController@restore');
     Route::get('me', 'Api\UserApiController@getAuthUser');

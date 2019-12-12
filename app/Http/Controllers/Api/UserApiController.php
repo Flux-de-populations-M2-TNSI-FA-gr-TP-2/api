@@ -76,7 +76,7 @@ class UserApiController extends Controller
   public function index()
   {
     if (auth()->user()->isAdmin()) {
-      $users = UserCollection::collection(User::paginate());
+      $users = UserCollection::collection(User::all());
 
       return response()->json([
         "success" => true,
@@ -103,7 +103,8 @@ class UserApiController extends Controller
 
     return response()->json([
       'success' => true,
-      'data' => $user
+      'data' => $user,
+      'message' => "Utilisateur modifié"
     ], 200);
   }
 
@@ -118,9 +119,15 @@ class UserApiController extends Controller
     if (auth()->user()->isAdmin()) {
       $user->delete();
 
-      return response()->json(null, 204);
+      return response()->json([
+        'success' => true,
+        'message' => 'Utilisateur supprimé'
+      ], 204);
     }
-    return response()->json(null, 401);
+    return response()->json([
+      'success' => false,
+      'message' => "Seul l'administrateur peut restaurer un utilisateur"
+    ], 401);
   }
 
   /**
@@ -137,7 +144,7 @@ class UserApiController extends Controller
         return response()->json([
           'success' => false,
           'message' => 'Utilisateur non trouvé'
-        ], 201);
+        ], 404);
       }
 
       return response()->json([
@@ -148,7 +155,7 @@ class UserApiController extends Controller
     }
     return response()->json([
       'success' => false,
-      'message' => "Seul l'administrateur peut supprimer un autre utilisateur"
+      'message' => "Seul l'administrateur peut restaurer un utilisateur"
     ], 401);
   }
 
@@ -194,6 +201,11 @@ class UserApiController extends Controller
   {
     $user = JWTAuth::authenticate($this->getTokenFromRequest($request));
 
-    return response()->json(['user' => $user]);
+    if ($user) {
+      return response()->json([
+        'success' => true
+        'data' => $user
+      ]);
+    }
   }
 }
