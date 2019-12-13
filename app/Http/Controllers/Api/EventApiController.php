@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Http\Resources\Events as EventCollection;
 use App\Event;
 use JWTAuth;
 
@@ -18,7 +19,7 @@ class EventApiController extends Controller
    */
   public function index()
   {
-    $events = Event::get();
+    $events = EventCollection::collection(Event::all());
 
     return response()->json([
       'success' => true,

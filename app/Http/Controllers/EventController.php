@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Event;
 
 class EventController extends Controller 
 {
@@ -14,7 +15,7 @@ class EventController extends Controller
    */
   public function index()
   {
-    
+    return Event::all();
   }
 
   /**
@@ -40,12 +41,12 @@ class EventController extends Controller
   /**
    * Display the specified resource.
    *
-   * @param  int  $id
+   * @param  Event  $event
    * @return Response
    */
-  public function show($id)
+  public function show(Event $event)
   {
-    
+    return $event;
   }
 
   /**
