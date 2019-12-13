@@ -12,6 +12,7 @@ class CreateSensorsTable extends Migration {
 			$table->timestamps();
 			$table->softDeletes();
 			$table->string('name', 255);
+			$table->string('type', 255)->nullable();
 			$table->string('unity', 20)->nullable();
 			$table->text('token')->nullable();
 			$table->integer('room_id')->unsigned();

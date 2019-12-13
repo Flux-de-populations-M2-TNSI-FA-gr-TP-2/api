@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 // Ces routes son ouvertes et ne nécessitent pas l'utilisation d'un Bearer token (JWT)
-Route::prefix('user')->group(function () {
+Route::middleware(['webMiddleware:api'])->prefix('user')->group(function () {
   Route::post('login', 'Api\UserApiController@login');
   Route::post('register', 'Api\UserApiController@create');
 });

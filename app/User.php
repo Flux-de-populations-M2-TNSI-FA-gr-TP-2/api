@@ -25,7 +25,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany('App\EventGroups', 'group_users', 'user_id', 'group_id');
     }
-	
+
 	/**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

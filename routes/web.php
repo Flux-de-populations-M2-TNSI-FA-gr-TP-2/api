@@ -16,10 +16,10 @@ Route::get('/', function () {
 });
 
 
-Route::resource('user', 'UserController');
-Route::resource('event', 'EventController');
-Route::resource('location', 'LocationController');
-Route::resource('room', 'RoomController');
+Route::resource('user', 'UserController')->middleware(['auth','admin']);
+Route::resource('event', 'EventController')->middleware(['auth','admin']);
+Route::resource('location', 'LocationController')->middleware(['auth','admin']);
+Route::resource('room', 'RoomController')->middleware(['auth','admin']);
 
 Auth::routes();
 
