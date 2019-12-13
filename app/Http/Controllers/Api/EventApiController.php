@@ -18,7 +18,7 @@ class EventApiController extends Controller
    */
   public function index()
   {
-    $events = Event::all();
+    $events = Event::get();
 
     return response()->json([
       'success' => true,
@@ -38,8 +38,10 @@ class EventApiController extends Controller
     $event->start = $request->start;
     $event->end = $request->end;
     $event->status = $request->status;
-
     $event->save();
+
+    $event->groups()->sync($request->groups);
+    $event->locations()->sync($request->locations);
 
     return response()->json([
       'success' => true,

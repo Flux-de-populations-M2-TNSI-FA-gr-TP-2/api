@@ -17,9 +17,9 @@ class User extends Authenticatable implements JWTSubject
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('firstname', 'lastname', 'email', 'password', 'birthdate', 'role');
-    protected $visible = array('firstname', 'lastname', 'email', 'birthdate', 'role');
-    protected $hidden = array('password');
+    protected $fillable = array('firstname', 'lastname', 'email', 'password', 'birthdate', 'role', 'remember_token');
+    protected $visible = array('id', 'firstname', 'lastname', 'email', 'birthdate', 'role');
+    protected $hidden = array('password', 'remember_token');
 
     public function eventsSubscription()
     {

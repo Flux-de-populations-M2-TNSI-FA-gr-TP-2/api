@@ -15,7 +15,7 @@ class Sensor extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = array('name', 'type', 'unity', 'token', 'room_id');
-    protected $visible = array('name', 'type', 'unity', 'token', 'room_id');
+    protected $visible = array('id', 'name', 'type', 'unity', 'token', 'room_id');
 
     public function room()
     {

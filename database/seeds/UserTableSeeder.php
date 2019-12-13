@@ -11,7 +11,7 @@ class UserTableSeeder extends Seeder {
 
 		// user1
 		User::create(array(
-				'firstname' => 'John',
+				'firstname' => 'Jane',
 				'lastname' => 'Doe',
 				'email' => '1@test.com',
 				'password' => Hash::make('1234'),
@@ -20,7 +20,7 @@ class UserTableSeeder extends Seeder {
 
 		// user2
 		User::create(array(
-				'firstname' => 'Jane',
+				'firstname' => 'John',
 				'lastname' => 'Doe',
 				'email' => '2@test.com',
 				'password' => Hash::make('1234'),

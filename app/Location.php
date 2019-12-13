@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Location extends Model 
+class Location extends Model
 {
 
     protected $table = 'locations';
@@ -19,17 +19,16 @@ class Location extends Model
 
     public function rooms()
     {
-        return $this->hasMany('Room', 'location_id');
+        return $this->hasMany('App\Room', 'location_id');
     }
 
     public function events()
     {
-        return $this->belongsToMany('App\Event', 'event_id');
+        return $this->belongsToMany('App\Event', 'event_location', 'location_id', 'event_id');
     }
 
     public function sensors()
     {
         return $this->hasManyThrough('App\Sensor', 'App\Room');
     }
-
 }

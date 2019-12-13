@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class EventGroups extends Model 
+class EventGroups extends Model
 {
 
     protected $table = 'eventsGroups';
@@ -15,7 +15,7 @@ class EventGroups extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = array('name', 'restriction');
-    protected $visible = array('name', 'restriction');
+    protected $visible = array('id', 'name', 'restriction');
 
     public function users()
     {
