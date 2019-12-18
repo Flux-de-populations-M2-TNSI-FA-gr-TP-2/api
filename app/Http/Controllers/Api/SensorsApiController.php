@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\Users as UserCollection;
 use JWTAuth;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use App\Sensor;
 
 class SensorsApiController extends Controller
@@ -27,20 +28,36 @@ class SensorsApiController extends Controller
       'Authorization' => 'Bearer '.$this->access_token,
       'Accept'        => 'application/json',
     ];
-    $res = $client->request('GET', 'https://pi-sensors.mozilla-iot.org/things', [
-      'headers' => $headers
-    ]);
-    if ($res->getStatusCode() == 200) {
-      $sensors = json_decode($res->getBody()->getContents());
-      foreach ($sensors as $sensorApi) {
-        $type = "@type";
-        $links = $sensorApi->links[0]->href;
-        // $sensor = Sensor::create(array('name' => $sensorApi->title, 'type' => $sensorApi->$type[0], 'token' => $sensorApi->title)); 
+    try {
+      $res = $client->request('GET', 'https://pi-sensors.mozilla-iot.org/things', [
+        'headers' => $headers
+      ]);
+      if ($res->getStatusCode() == 200) {
+        $sensors = json_decode($res->getBody()->getContents());
+        foreach ($sensors as $sensorApi) {
+          $type = "@type";
+          $link = "https://pi-sensors.mozilla-iot.org".$sensorApi->links[0]->href;
+          // $sensor = Sensor::create(array('name' => $sensorApi->title, 'type' => $sensorApi->$type[0], 'token' => $sensorApi->title));
+          if (in_array("TemperatureSensor", $sensorApi->$type)) {
+            // code...
+            $req = $client->request('GET', $link, [
+              'headers' => $headers
+            ]);
+            return response()->json(json_decode($req->getBody()->getContents()));
+          }
+        }
+        return response()->json([
+          "success" => true,
+          "data" => $links
+        ], 200);
       }
+    } catch (RequestException $e) {
       return response()->json([
-        "success" => true,
-        "data" => $links
+        "success" => false,
+        "data" => null,
+        "message" => "Aucune information n'est disponible actuellement."
       ], 200);
     }
+
   }
 }

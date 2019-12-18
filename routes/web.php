@@ -16,11 +16,11 @@ Route::get('/', function () {
 });
 
 
-Route::resource('user', 'UserController')->middleware(['auth','admin']);
-Route::resource('event', 'EventController')->middleware(['auth','admin']);
-Route::resource('location', 'LocationController')->middleware(['auth','admin']);
-Route::resource('room', 'RoomController')->middleware(['auth','admin']);
-
+// Route::resource('user', 'UserController')->middleware(['auth','admin']);
+// Route::resource('event', 'EventController')->middleware(['auth','admin']);
+// Route::resource('location', 'LocationController')->middleware(['auth','admin']);
+// Route::resource('room', 'RoomController')->middleware(['auth','admin']);
+//
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+//
+// Route::get('/home', 'HomeController@index')->name('home');

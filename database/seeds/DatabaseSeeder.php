@@ -26,8 +26,5 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call([EventGroupsLinkTableSeeder::class]);
 		$this->command->info('EventGroupsLink table seeded!');
-
-		$this->call([EventLocationTableSeeder::class]);
-		$this->command->info('EventLocation table seeded!');
 	}
 }

@@ -13,6 +13,7 @@ class CreateLocationsTable extends Migration {
 			$table->softDeletes();
 			$table->string('name', 255);
 			$table->text('address')->nullable();
+			$table->text('image')->nullable();
 		});
 	}
 

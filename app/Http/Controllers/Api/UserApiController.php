@@ -76,14 +76,17 @@ class UserApiController extends Controller
   public function index()
   {
     if (auth()->user()->isAdmin()) {
-      $users = UserCollection::collection(User::all());
+      $users = User::all();
 
       return response()->json([
         "success" => true,
         "data" => $users
       ], 200);
     }
-    return response()->json(null, 401);
+    return response()->json([
+      'success' => false,
+      'message' => 'Vous ne possédez pas les autorisations nécessaires.'
+    ], 401);
   }
 
   /**
@@ -191,6 +194,7 @@ class UserApiController extends Controller
     return response()->json([
       'success' => true,
       'access_token' => $token,
+      'user' => \Auth::user(),
       'token_type' => 'bearer',
       'expires_in' => \Auth::guard('api')->factory()->getTTL() * 60
     ]);

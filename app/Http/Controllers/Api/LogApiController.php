@@ -6,12 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use App\Http\Resources\Events as EventCollection;
-use App\Event;
-use App\EventGroups;
+use App\DbLog;
 use JWTAuth;
 
-class EventApiController extends Controller
+class LogApiController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -20,26 +18,11 @@ class EventApiController extends Controller
    */
   public function index()
   {
-    $events = Event::all();
+    $logs = DbLog::all();
 
     return response()->json([
       'success' => true,
-      'data' => $events
-    ], 200);
-  }
-
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function indexGroups()
-  {
-    $events = EventGroups::all();
-
-    return response()->json([
-      'success' => true,
-      'data' => $events
+      'data' => $logs
     ], 200);
   }
 
@@ -50,19 +33,15 @@ class EventApiController extends Controller
    */
   public function create(Request $request)
   {
-    $event = new Event();
-    $event->name = $request->name;
-    $event->start = $request->start;
-    $event->end = $request->end;
-    $event->status = $request->status;
-    $event->save();
-
-    $event->groups()->sync($request->groups);
-    $event->locations()->sync($request->locations);
+    $log = new DbLog();
+    $log->name = $request->name;
+    $log->data = $request->data;
+    $log->location_id = $request->location_id;
+    $log->save();
 
     return response()->json([
       'success' => true,
-      'data' => $event
+      'data' => $log
     ], 201);
   }
 
@@ -72,11 +51,11 @@ class EventApiController extends Controller
   * @param  int  $id
   * @return Response
   */
-  public function show(Event $event)
+  public function show(DbLog $log)
   {
     return response()->json([
       'success' => true,
-      'data' => $event
+      'data' => $log
     ], 200);
   }
 
@@ -86,14 +65,14 @@ class EventApiController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update(Request $request, Event $event)
+  public function update(Request $request, DbLog $log)
   {
-    $event->update($request->all());
+    $log->update($request->all());
 
     return response()->json([
       'success' => true,
-      'data' => $event,
-      'message' => "Évènement modifié"
+      'data' => $log,
+      'message' => "Log modifié"
     ], 200);
   }
 
@@ -103,13 +82,13 @@ class EventApiController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy(Event $event)
+  public function destroy(DbLog $log)
   {
-    $event->delete();
+    $log->delete();
 
     return response()->json([
       'success' => true,
-      'message' => 'Évènement supprimé'
+      'message' => 'Log supprimé'
     ], 204);
   }
 }
