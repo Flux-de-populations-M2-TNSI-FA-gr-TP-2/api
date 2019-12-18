@@ -23,12 +23,12 @@ class CreateForeignKeys extends Migration {
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
-		Schema::table('event_location', function(Blueprint $table) {
-			$table->foreign('event_id')->references('id')->on('events')
+		Schema::table('group_location', function(Blueprint $table) {
+			$table->foreign('group_id')->references('id')->on('eventsGroups')
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
-		Schema::table('event_location', function(Blueprint $table) {
+		Schema::table('group_location', function(Blueprint $table) {
 			$table->foreign('location_id')->references('id')->on('locations')
 						->onDelete('cascade')
 						->onUpdate('cascade');
@@ -48,6 +48,21 @@ class CreateForeignKeys extends Migration {
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
+		Schema::table('logs', function(Blueprint $table) {
+			$table->foreign('location_id')->references('id')->on('locations')
+						->onDelete('set null')
+						->onUpdate('set null');
+		});
+		Schema::table('sensor_types', function(Blueprint $table) {
+			$table->foreign('sensor_id')->references('id')->on('sensors')
+						->onDelete('cascade')
+						->onUpdate('cascade');
+		});
+		Schema::table('sensor_types', function(Blueprint $table) {
+			$table->foreign('type_id')->references('id')->on('types')
+						->onDelete('cascade')
+						->onUpdate('cascade');
+		});
 	}
 
 	public function down()
@@ -61,11 +76,11 @@ class CreateForeignKeys extends Migration {
 		Schema::table('event_groups', function(Blueprint $table) {
 			$table->dropForeign('event_groups_group_id_foreign');
 		});
-		Schema::table('event_location', function(Blueprint $table) {
-			$table->dropForeign('event_location_event_id_foreign');
+		Schema::table('group_location', function(Blueprint $table) {
+			$table->dropForeign('group_location_group_id_foreign');
 		});
-		Schema::table('event_location', function(Blueprint $table) {
-			$table->dropForeign('event_location_location_id_foreign');
+		Schema::table('group_location', function(Blueprint $table) {
+			$table->dropForeign('group_location_location_id_foreign');
 		});
 		Schema::table('group_users', function(Blueprint $table) {
 			$table->dropForeign('group_users_group_id_foreign');
@@ -75,6 +90,15 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('sensors', function(Blueprint $table) {
 			$table->dropForeign('sensors_room_id_foreign');
+		});
+		Schema::table('logs', function(Blueprint $table) {
+			$table->dropForeign('logs_location_id_foreign');
+		});
+		Schema::table('sensor_types', function(Blueprint $table) {
+			$table->dropForeign('sensor_types_sensor_id_foreign');
+		});
+		Schema::table('sensor_types', function(Blueprint $table) {
+			$table->dropForeign('sensor_types_type_id_foreign');
 		});
 	}
 }

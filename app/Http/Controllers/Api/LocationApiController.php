@@ -14,7 +14,7 @@ class LocationApiController extends Controller
 
   public function index()
   {
-    $locations = Location::get();
+    $locations = Location::all();
     return response()->json([
       'success' => true,
       'data'    => $locations
@@ -26,6 +26,12 @@ class LocationApiController extends Controller
     $location          = new Location();
     $location->name    = $request->name;
     $location->address = $request->address;
+    if (isset($request->image)) {
+      $location->image = $request->image;
+    }
+    else {
+      $location->image = "https://www.groupe-sai.fr/wp-content/uploads/2019/02/Campus-Mont-Houy.jpg";
+    }
     $location->save();
 
     return response()->json([

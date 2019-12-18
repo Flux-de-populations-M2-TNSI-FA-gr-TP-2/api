@@ -22,11 +22,6 @@ class Event extends Model
     return $this->belongsToMany('App\EventGroups', 'event_groups', 'event_id', 'group_id');
   }
 
-  public function locations()
-  {
-    return $this->belongsToMany('App\Location', 'event_location', 'event_id', 'location_id');
-  }
-
   public function toArray() {
     // get the original array to be displayed
     $data = parent::toArray();

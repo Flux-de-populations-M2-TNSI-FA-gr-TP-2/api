@@ -15,7 +15,7 @@ class CreateSensorsTable extends Migration {
 			$table->string('type', 255)->nullable();
 			$table->string('unity', 20)->nullable();
 			$table->text('token')->nullable();
-			$table->integer('room_id')->unsigned();
+			$table->integer('room_id')->unsigned()->nullable();
 		});
 	}
 

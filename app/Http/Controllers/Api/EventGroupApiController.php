@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Resources\Events as EventCollection;
-use App\Event;
 use App\EventGroups;
 use JWTAuth;
 
-class EventApiController extends Controller
+class EventGroupApiController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -19,21 +18,6 @@ class EventApiController extends Controller
    * @return Response
    */
   public function index()
-  {
-    $events = Event::all();
-
-    return response()->json([
-      'success' => true,
-      'data' => $events
-    ], 200);
-  }
-
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function indexGroups()
   {
     $events = EventGroups::all();
 
@@ -50,15 +34,10 @@ class EventApiController extends Controller
    */
   public function create(Request $request)
   {
-    $event = new Event();
+    $event = new EventGroups();
     $event->name = $request->name;
-    $event->start = $request->start;
-    $event->end = $request->end;
-    $event->status = $request->status;
+    $event->restriction = $request->restriction;
     $event->save();
-
-    $event->groups()->sync($request->groups);
-    $event->locations()->sync($request->locations);
 
     return response()->json([
       'success' => true,
@@ -72,7 +51,7 @@ class EventApiController extends Controller
   * @param  int  $id
   * @return Response
   */
-  public function show(Event $event)
+  public function show(EventGroups $event)
   {
     return response()->json([
       'success' => true,
@@ -86,14 +65,14 @@ class EventApiController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update(Request $request, Event $event)
+  public function update(Request $request, EventGroups $event)
   {
     $event->update($request->all());
 
     return response()->json([
       'success' => true,
       'data' => $event,
-      'message' => "Évènement modifié"
+      'message' => "Groupe d'évènement modifié"
     ], 200);
   }
 
@@ -103,13 +82,13 @@ class EventApiController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy(Event $event)
+  public function destroy(EventGroups $event)
   {
     $event->delete();
 
     return response()->json([
       'success' => true,
-      'message' => 'Évènement supprimé'
+      'message' => 'Groupe d\'évènement supprimé'
     ], 204);
   }
 }
