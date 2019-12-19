@@ -20,7 +20,7 @@
       "description": "Opérations concernant les évènements"
     },
     {
-      "name": "Batîments",
+      "name": "Bâtiments",
       "description": "Opérations concernant les batîments"
     },
     {
@@ -1061,7 +1061,7 @@
     "/location": {
       "get": {
         "tags": [
-          "Batîments"
+          "Bâtiments"
         ],
         "summary": "Liste des batîments",
         "operationId": "listLocation",
@@ -1116,7 +1116,7 @@
     "/location/create": {
       "post": {
         "tags": [
-          "Batîments"
+          "Bâtiments"
         ],
         "security": [
           {
@@ -1190,7 +1190,7 @@
     "/location/{location_id}": {
       "put": {
         "tags": [
-          "Batîments"
+          "Bâtiments"
         ],
         "summary": "Modification d'un batîment",
         "operationId": "updateLocation",
@@ -1265,7 +1265,7 @@
       },
       "get": {
         "tags": [
-          "Batîments"
+          "Bâtiments"
         ],
         "summary": "Affichage d'un batîment",
         "operationId": "showLocation",
@@ -1340,7 +1340,7 @@
       },
       "delete": {
         "tags": [
-          "Batîments"
+          "Bâtiments"
         ],
         "summary": "Suppression d'un batiment",
         "operationId": "deleteLocation",

@@ -57,8 +57,8 @@ class EventApiController extends Controller
     $event->status = $request->status;
     $event->save();
 
-    $event->groups()->sync($request->groups);
-    $event->locations()->sync($request->locations);
+    // $event->groups()->sync($request->groups);
+    // $event->locations()->sync($request->locations);
 
     return response()->json([
       'success' => true,
