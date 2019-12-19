@@ -12,6 +12,7 @@ class CreateTypesTable extends Migration {
 			$table->timestamps();
 			$table->softDeletes();
 			$table->string('name', 255);
+			$table->string('unity', 20)->nullable();
 		});
 	}
 

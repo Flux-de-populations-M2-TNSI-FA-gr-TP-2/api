@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 // Route::resource('user', 'UserController')->middleware(['auth','admin']);
@@ -21,6 +21,6 @@ Route::get('/', function () {
 // Route::resource('location', 'LocationController')->middleware(['auth','admin']);
 // Route::resource('room', 'RoomController')->middleware(['auth','admin']);
 //
-Auth::routes();
+// Auth::routes();
 //
 // Route::get('/home', 'HomeController@index')->name('home');

@@ -24,11 +24,6 @@ Route::prefix('log')->group(function() {
   Route::post('create', 'Api\LogApiController@create');
  });
 
-/* SENSORS ROUTES */
-Route::prefix('sensors')->group(function () {
-  Route::get('/', 'Api\SensorsApiController@index');
-});
-
 // Ces routes nécessitent l'utilisation d'un Bearer token (JWT) obtenu après le login
 Route::middleware(['auth.jwt','auth:api'])->group(function () {
   /* LOCATION ROUTES */
@@ -57,6 +52,7 @@ Route::middleware(['auth.jwt','auth:api'])->group(function () {
      Route::put('{event}', 'Api\EventApiController@update')->where('event', '[0-9]+');
      Route::delete('{event}', 'Api\EventApiController@destroy')->where('event', '[0-9]+');
     });
+
     Route::prefix('eventgroup')->group(function() {
       Route::get('/', 'Api\EventGroupApiController@index');
       Route::post('create', 'Api\EventGroupApiController@create');
@@ -71,6 +67,14 @@ Route::middleware(['auth.jwt','auth:api'])->group(function () {
       Route::get('{log}', 'Api\LogApiController@show')->where('log', '[0-9]+');
       Route::put('{log}', 'Api\LogApiController@update')->where('log', '[0-9]+');
       Route::delete('{log}', 'Api\LogApiController@destroy')->where('log', '[0-9]+');
+     });
+
+     /* SENSORS ROUTES */
+     Route::prefix('sensor')->group(function () {
+       Route::get('/', 'Api\SensorsApiController@index');
+       Route::get('{sensor}', 'Api\SensorsApiController@show')->where('sensor', '[0-9]+');
+       Route::put('{sensor}', 'Api\SensorsApiController@update')->where('sensor', '[0-9]+');
+       Route::delete('{sensor}', 'Api\SensorsApiController@destroy')->where('sensor', '[0-9]+');
      });
 
     /* USER ROUTES */
