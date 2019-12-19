@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\EventGroups;
+use App\GroupLocation;
 
 class EventGroupsTableSeeder extends Seeder {
 
@@ -11,13 +12,23 @@ class EventGroupsTableSeeder extends Seeder {
 
 		// Admin
 		EventGroups::create(array(
-				'name' => 'Admin',
-				'restriction' => 'admin'
-			));
+			'name' => 'Admin',
+			'restriction' => 'admin'
+		));
 
 		// RU
 		EventGroups::create(array(
-				'name' => 'RU'
-			));
+			'name' => 'RU'
+		));
+
+		GroupLocation::create(array(
+			'group_id' => 2,
+			'location_id' => 2
+		));
+		
+		GroupLocation::create(array(
+			'group_id' => 1,
+			'location_id' => 5
+		));
 	}
 }
