@@ -28,10 +28,6 @@
       "description": "Opérations concernant les salles"
     },
     {
-      "name": "Capteurs",
-      "description": "Opérations concernant les capteurs"
-    },
-    {
       "name": "Logs",
       "description": "Opérations concernant les logs"
     }
@@ -1927,12 +1923,21 @@
             "items": {
               "$ref": "#/components/schemas/Salle"
             }
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            }
           }
         }
       },
       "Salle": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer"
+          },
           "name": {
             "type": "string"
           },
@@ -1941,6 +1946,12 @@
           },
           "location_id": {
             "type": "integer"
+          },
+          "sensors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sensor"
+            }
           }
         }
       },
@@ -1955,6 +1966,75 @@
           },
           "location_id": {
             "type": "integer"
+          }
+        }
+      },
+      "Sensor": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "room_id": {
+            "type": "integer"
+          },
+          "url": {
+            "type": "string"
+          },
+          "types": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SensorType"
+            }
+          },
+          "infos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SensorInfos"
+            }
+          },
+        }
+      },
+      "SensorInfos": {
+        "type": "object",
+        "properties": {
+          "motion": {
+            "type": "boolean"
+          },
+          "tamper": {
+            "type": "boolean"
+          },
+          "temperature": {
+            "type": "string"
+          },
+          "luminance": {
+            "type": "integer"
+          },
+          "wakeUpInterval": {
+            "type": "integer"
+          },
+          "batteryLevel": {
+            "type": "integer"
+          }
+        }
+      },
+      "SensorType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "unity": {
+            "type": "string"
           }
         }
       }

@@ -40,12 +40,12 @@ class Location extends Model
     public function toArray() {
         $data = parent::toArray();
         $data['rooms'] = $this->rooms;
-        $events = array();
+        $events = collect();
         foreach ($this->groups as $eventGroup) {
-          // dd($eventGroup);
-          $events[] = $eventGroup->events;
+          $events->push($eventGroup->events);
         }
-        $data['events'] = $events;
+        $events = $events->flatten();
+        $data['events'] = $events->unique('id');
         return $data;
     }
 

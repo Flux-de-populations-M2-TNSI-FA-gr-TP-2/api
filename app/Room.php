@@ -27,4 +27,14 @@ class Room extends Model
         return $this->hasMany('App\Sensor');
     }
 
+    public function toArray() {
+        $data = parent::toArray();
+        $sensors = $this->sensors;
+
+        $data['sensors'] = $sensors;
+        // $data['nbUsers'] = $this->location->logs()->where('name', 'nbuser')->get()->last()->data;
+
+        return $data;
+    }
+
 }

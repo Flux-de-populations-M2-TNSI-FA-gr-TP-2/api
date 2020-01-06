@@ -15,7 +15,7 @@ class Type extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = array('name', 'unity');
-    protected $visible = array('name', 'unity');
+    protected $visible = array('id','name', 'unity');
 
     public function sensors()
     {
