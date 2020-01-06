@@ -35,6 +35,10 @@ Route::middleware(['auth.jwt','auth:api'])->group(function () {
     Route::delete('{location}', 'Api\LocationApiController@destroy')->where('location', '[0-9]+');
   });
 
+  Route::prefix('general')->group(function () {
+    Route::get('count', 'Api\GeneralApiController@count');
+  });
+
   /* ROOM ROUTES */
   Route::prefix('room')->group(function() {
     Route::get('/', 'Api\RoomApiController@index');

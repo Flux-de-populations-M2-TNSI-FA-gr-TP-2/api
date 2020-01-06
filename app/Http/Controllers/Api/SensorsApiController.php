@@ -87,9 +87,10 @@ class SensorsApiController extends Controller
       ]);
       if ($res->getStatusCode() == 200) {
         $response = json_decode($res->getBody()->getContents());
+        $data = array("sensor" => $sensor, "data" => $response);
         return response()->json([
           'success' => true,
-          'data' => $sensor
+          'data' => $data
         ], 200);
       }
     } catch (RequestException $e) {
